@@ -1,0 +1,12 @@
+{
+  "name": "personal",
+  "owner": {
+    "name": "Tora29"
+  },
+  "plugins": [
+    {
+      "name": "private-claude-skills",
+      "source": "./"
+    }
+  ]
+}
