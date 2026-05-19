@@ -50,8 +50,17 @@ git push -u origin <branch-name>
 
 `gh` CLI を使って PR を作成する。base は通常 `main` とする。
 
+**引数に issue 番号が指定されている場合**（例: `/commit-push-pr 17`）、PR 本文の末尾に `Closes #17` を追加する。
+マージ時に issue が自動クローズされる。
+
 ```bash
+# issue 番号なし
 gh pr create --base main --head <branch-name> --title "<title>" --body "<body>"
+
+# issue 番号あり（例: 17）
+gh pr create --base main --head <branch-name> --title "<title>" --body "<body>
+
+Closes #17"
 ```
 
 PR タイトルはコミットメッセージと整合する内容にすること。本文には変更概要を簡潔に含めること。
