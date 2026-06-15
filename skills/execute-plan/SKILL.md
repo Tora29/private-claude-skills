@@ -68,7 +68,21 @@ gh issue comment {番号} --body "🎉 全ステップ完了。PRを作成しま
 
 ---
 
-## ステップ 4: PR 作成
+## ステップ 4: plan ファイルを done/ へ移動
+
+実装済みの plan ファイルを `done/` サブディレクトリへ移動する。
+
+```bash
+mkdir -p .claude/plan/done
+mv .claude/plan/Issue-{番号}-*.md .claude/plan/done/ 2>/dev/null || true
+```
+
+- `done/` が存在しない場合は `mkdir -p` で自動作成する
+- `mv` 失敗時（ファイルが既に移動済み等）はエラーを無視して継続する
+
+---
+
+## ステップ 5: PR 作成
 
 `/commit-push-pr {issue番号}` を実行するようユーザーに促す。
 （PRの `Closes #{番号}` でマージ時に issue が自動クローズされる）
