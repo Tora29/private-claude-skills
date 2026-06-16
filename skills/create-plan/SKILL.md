@@ -107,11 +107,34 @@ ls .claude/plan/ 2>/dev/null
 
 「はい」「起票して」などの承認が得られた場合のみ、以下の手順で起票する。
 
+### 5-0. 優先度の確認
+
+起票前に優先度を確認する。
+
+> 優先度を選んでください：
+>
+> - **P0**: ブロッカー・即対応
+> - **P1**: 高優先・今週中
+> - **P2**: 通常優先（デフォルト）
+> - **P3**: いつか対応
+
+回答がない場合は P2 をデフォルトとして使用する。
+
+確認後、対象リポジトリにラベルが存在しなければ作成する。
+
+```bash
+gh label list | grep -q "^P0" || gh label create "P0" --color "#B60205" --description "ブロッカー・即対応"
+gh label list | grep -q "^P1" || gh label create "P1" --color "#E4E669" --description "高優先・今週中"
+gh label list | grep -q "^P2" || gh label create "P2" --color "#0075CA" --description "通常優先"
+gh label list | grep -q "^P3" || gh label create "P3" --color "#CFD3D7" --description "いつか対応"
+```
+
 ### 5-1. issue 起票
 
 ```bash
 gh issue create \
   --title "{タスク概要タイトル（日本語）}" \
+  --label "{P0|P1|P2|P3}" \
   --body "$(cat <<'EOF'
 ## 概要
 
